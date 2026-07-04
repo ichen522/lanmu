@@ -1,1 +1,267 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>lamu — 自我介紹</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap');
 
+  :root {
+    --ink: #1B2430;
+    --parchment: #F1EAD6;
+    --gold: #C9A227;
+    --rose: #E8B4B8;
+    --line: rgba(241, 234, 214, 0.15);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--ink);
+    color: var(--parchment);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ---------- Hero ---------- */
+  header.hero {
+    padding: 120px 0 80px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .eyebrow {
+    font-size: 13px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+    font-weight: 600;
+  }
+
+  h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(40px, 7vw, 72px);
+    font-weight: 600;
+    line-height: 1.1;
+    margin-bottom: 24px;
+  }
+
+  h1 span { color: var(--rose); font-style: italic; }
+
+  .hero-sub {
+    font-size: 18px;
+    max-width: 520px;
+    color: rgba(241, 234, 214, 0.75);
+  }
+
+  /* ---------- Video Section ---------- */
+  section.video {
+    padding: 64px 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .video-frame {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%; /* 16:9 */
+    background: rgba(241, 234, 214, 0.05);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .video-frame iframe {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    border: none;
+  }
+
+  .video-caption {
+    margin-top: 16px;
+    font-size: 14px;
+    color: rgba(241, 234, 214, 0.55);
+  }
+
+  /* ---------- Section generic ---------- */
+  section {
+    padding: 64px 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  section:last-of-type { border-bottom: none; }
+
+  .label {
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 24px;
+  }
+
+  h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(28px, 4vw, 38px);
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+
+  p.body-text {
+    font-size: 17px;
+    color: rgba(241, 234, 214, 0.85);
+    max-width: 640px;
+  }
+
+  /* ---------- Product ---------- */
+  .product-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 28px;
+    padding: 20px 24px;
+    background: rgba(241, 234, 214, 0.04);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    border-left: 3px solid var(--rose);
+  }
+
+  .product-card .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--rose);
+    flex-shrink: 0;
+  }
+
+  /* ---------- Footer ---------- */
+  footer {
+    padding: 48px 0 80px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .contact-links {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .contact-links a {
+    color: var(--parchment);
+    text-decoration: none;
+    font-size: 15px;
+    border-bottom: 1px solid var(--gold);
+    padding-bottom: 2px;
+    transition: opacity 0.2s;
+  }
+
+  .contact-links a:hover { opacity: 0.7; }
+
+  .brand-mark {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    color: rgba(241, 234, 214, 0.4);
+    font-size: 14px;
+  }
+
+  @media (max-width: 600px) {
+    header.hero { padding: 80px 0 56px; }
+    footer { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- ============================================ -->
+  <!-- 區塊 1：主標題 — 在這裡編輯你的名字/一句話介紹 -->
+  <!-- ============================================ -->
+  <header class="hero">
+    <div class="eyebrow">Hello, I'm introducing</div>
+    <h1>lamu <span>自我介紹</span></h1>
+    <p class="hero-sub">
+      <!-- ★ 在這裡改成你想說的一句話，例如：一句形容自己的話 -->
+      這裡放一句簡短有力的自我介紹，說明你是誰、你在做什麼。
+    </p>
+  </header>
+
+  <!-- ============================================ -->
+  <!-- 區塊 2：影片 — 只要換這一行的 YouTube 連結就好 -->
+  <!-- ============================================ -->
+  <section class="video">
+    <div class="label">介紹影片</div>
+    <div class="video-frame">
+      <!-- ★★★ 把下面 src 裡的 YOUR_VIDEO_ID 換成你 YouTube 影片的 ID 就好 -->
+      <!-- 例如影片網址是 https://www.youtube.com/watch?v=abc123 -->
+      <!-- 那 ID 就是 abc123，換成： src="https://www.youtube.com/embed/abc123" -->
+      <iframe
+        src="https://www.youtube.com/embed/YOUR_VIDEO_ID"
+        title="自我介紹影片"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    </div>
+    <p class="video-caption">影片說明可以寫在這裡（選填）</p>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- 區塊 3：關於我 — 在這裡編輯自我介紹的文字 -->
+  <!-- ============================================ -->
+  <section>
+    <div class="label">關於我</div>
+    <h2>這裡放你的名字或標題</h2>
+    <p class="body-text">
+      <!-- ★ 在這裡寫關於自己的介紹，可以是背景、經歷、為什麼想參加這次海選等等 -->
+      這裡放一段關於自己的介紹文字。可以說說你的背景、你的故事，
+      或是為什麼你想參加這次海選。建議控制在 3-5 句話，簡潔有力。
+    </p>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- 區塊 4：產品 lamu 介紹 — 在這裡編輯產品說明 -->
+  <!-- ============================================ -->
+  <section>
+    <div class="label">關於 lamu</div>
+    <h2>lamu 是什麼</h2>
+    <p class="body-text">
+      <!-- ★ 在這裡介紹 lamu 產品/品牌的內容 -->
+      這裡放產品或品牌 lamu 的介紹文字，說明它是做什麼的、
+      解決了什麼問題，或是它的特色是什麼。
+    </p>
+
+    <div class="product-card">
+      <div class="dot"></div>
+      <!-- ★ 可以放一個重點特色/口號 -->
+      <span>在這裡放一句 lamu 的重點特色或口號</span>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- 區塊 5：聯絡方式 — 在這裡換成真實連結 -->
+  <!-- ============================================ -->
+  <footer>
+    <div class="contact-links">
+      <!-- ★ 把 # 換成真實連結，例如 Instagram、Email -->
+      <a href="#">Instagram</a>
+      <a href="#">Email</a>
+      <a href="#">官方網站</a>
+    </div>
+    <div class="brand-mark">lamu</div>
+  </footer>
+
+</div>
+
+</body>
+</html>
