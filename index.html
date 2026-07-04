@@ -3,78 +3,131 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>lamu — 自我介紹</title>
+<title>Lanmu 嵐慕 — 自我介紹</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,500&family=Noto+Sans+TC:wght@300;400;500&display=swap');
 
   :root {
-    --ink: #1B2430;
-    --parchment: #F1EAD6;
-    --gold: #C9A227;
-    --rose: #E8B4B8;
-    --line: rgba(241, 234, 214, 0.15);
+    --bg-dark: #2A211B;      /* 深咖啡背景 */
+    --bg-mid: #6B5647;       /* 中棕 */
+    --cream: #F3ECE1;        /* 米白文字 */
+    --cream-soft: rgba(243, 236, 225, 0.72);
+    --tan: #C9A876;          /* 溫暖點綴色 */
+    --line: rgba(243, 236, 225, 0.14);
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
-    background: var(--ink);
-    color: var(--parchment);
-    font-family: 'Inter', sans-serif;
-    line-height: 1.6;
+    background: var(--bg-dark);
+    color: var(--cream);
+    font-family: 'Noto Sans TC', sans-serif;
+    line-height: 1.75;
     -webkit-font-smoothing: antialiased;
   }
 
   .wrap {
-    max-width: 860px;
+    max-width: 880px;
     margin: 0 auto;
-    padding: 0 24px;
+    padding: 0 28px;
   }
 
-  /* ---------- Hero ---------- */
-  header.hero {
-    padding: 120px 0 80px;
-    border-bottom: 1px solid var(--line);
+  /* ---------- Hero with photo ---------- */
+  .hero-photo {
+    position: relative;
+    width: 100%;
+    height: 62vh;
+    min-height: 420px;
+    /* ================================================ */
+    /* ★★★ 換照片：把下面 background-image 的網址          */
+    /* 換成你朋友照片檔案的路徑，例如放在 repo 根目錄的       */
+    /* photo.jpg，就寫成 url('photo.jpg')                 */
+    /* ================================================ */
+    background-image:
+      linear-gradient(180deg, rgba(42,33,27,0.15) 0%, rgba(42,33,27,0.85) 100%),
+      url('https://images.unsplash.com/photo-1615529162924-f8605388461d?q=80&w=1600');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .hero-photo-inner {
+    padding: 48px 28px;
+    max-width: 880px;
+    margin: 0 auto;
+    width: 100%;
   }
 
   .eyebrow {
     font-size: 13px;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 20px;
-    font-weight: 600;
+    color: var(--tan);
+    margin-bottom: 18px;
+    font-weight: 500;
   }
 
   h1 {
-    font-family: 'Fraunces', serif;
-    font-size: clamp(40px, 7vw, 72px);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(40px, 7vw, 68px);
     font-weight: 600;
-    line-height: 1.1;
-    margin-bottom: 24px;
+    line-height: 1.15;
+    margin-bottom: 16px;
   }
 
-  h1 span { color: var(--rose); font-style: italic; }
+  h1 em {
+    font-style: italic;
+    color: var(--tan);
+  }
 
   .hero-sub {
-    font-size: 18px;
-    max-width: 520px;
-    color: rgba(241, 234, 214, 0.75);
+    font-size: 17px;
+    max-width: 480px;
+    color: var(--cream-soft);
   }
 
-  /* ---------- Video Section ---------- */
-  section.video {
-    padding: 64px 0;
+  /* ---------- Sections ---------- */
+  section {
+    padding: 72px 0;
     border-bottom: 1px solid var(--line);
   }
 
+  section:last-of-type { border-bottom: none; }
+
+  .label {
+    font-size: 13px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--tan);
+    font-weight: 500;
+    margin-bottom: 28px;
+  }
+
+  h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: clamp(30px, 4vw, 42px);
+    font-weight: 500;
+    margin-bottom: 24px;
+    color: var(--cream);
+  }
+
+  p.body-text {
+    font-size: 17px;
+    color: var(--cream-soft);
+    max-width: 620px;
+  }
+
+  p.body-text + p.body-text { margin-top: 16px; }
+
+  /* ---------- Video ---------- */
   .video-frame {
     position: relative;
     width: 100%;
-    padding-top: 56.25%; /* 16:9 */
-    background: rgba(241, 234, 214, 0.05);
+    padding-top: 56.25%;
+    background: rgba(243, 236, 225, 0.04);
     border: 1px solid var(--line);
-    border-radius: 4px;
     overflow: hidden;
   }
 
@@ -86,182 +139,157 @@
   }
 
   .video-caption {
-    margin-top: 16px;
+    margin-top: 18px;
     font-size: 14px;
-    color: rgba(241, 234, 214, 0.55);
+    color: rgba(243, 236, 225, 0.5);
   }
 
-  /* ---------- Section generic ---------- */
-  section {
-    padding: 64px 0;
-    border-bottom: 1px solid var(--line);
-  }
-
-  section:last-of-type { border-bottom: none; }
-
-  .label {
-    font-size: 13px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--gold);
-    font-weight: 600;
-    margin-bottom: 24px;
-  }
-
-  h2 {
-    font-family: 'Fraunces', serif;
-    font-size: clamp(28px, 4vw, 38px);
-    font-weight: 600;
-    margin-bottom: 20px;
-  }
-
-  p.body-text {
-    font-size: 17px;
-    color: rgba(241, 234, 214, 0.85);
-    max-width: 640px;
-  }
-
-  /* ---------- Product ---------- */
+  /* ---------- Product card ---------- */
   .product-card {
     display: flex;
-    align-items: center;
-    gap: 16px;
-    margin-top: 28px;
-    padding: 20px 24px;
-    background: rgba(241, 234, 214, 0.04);
-    border: 1px solid var(--line);
-    border-radius: 8px;
-    border-left: 3px solid var(--rose);
+    align-items: flex-start;
+    gap: 18px;
+    margin-top: 32px;
+    padding: 24px 28px;
+    background: rgba(243, 236, 225, 0.035);
+    border-left: 2px solid var(--tan);
   }
 
-  .product-card .dot {
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: var(--rose);
+  .product-card .mark {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 24px;
+    color: var(--tan);
+    line-height: 1;
     flex-shrink: 0;
   }
 
   /* ---------- Footer ---------- */
   footer {
-    padding: 48px 0 80px;
+    padding: 56px 0 88px;
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 24px;
     justify-content: space-between;
     align-items: center;
   }
 
   .contact-links {
     display: flex;
-    gap: 24px;
+    gap: 28px;
     flex-wrap: wrap;
   }
 
   .contact-links a {
-    color: var(--parchment);
+    color: var(--cream);
     text-decoration: none;
     font-size: 15px;
-    border-bottom: 1px solid var(--gold);
+    border-bottom: 1px solid var(--tan);
     padding-bottom: 2px;
     transition: opacity 0.2s;
   }
 
-  .contact-links a:hover { opacity: 0.7; }
+  .contact-links a:hover { opacity: 0.65; }
 
   .brand-mark {
-    font-family: 'Fraunces', serif;
+    font-family: 'Cormorant Garamond', serif;
     font-style: italic;
-    color: rgba(241, 234, 214, 0.4);
-    font-size: 14px;
+    color: rgba(243, 236, 225, 0.4);
+    font-size: 15px;
+    letter-spacing: 0.05em;
   }
 
   @media (max-width: 600px) {
-    header.hero { padding: 80px 0 56px; }
+    .hero-photo { height: 52vh; min-height: 340px; }
     footer { flex-direction: column; align-items: flex-start; }
   }
 </style>
 </head>
 <body>
 
-<div class="wrap">
-
   <!-- ============================================ -->
-  <!-- 區塊 1：主標題 — 在這裡編輯你的名字/一句話介紹 -->
+  <!-- 主視覺照片區 — 換照片請看上面 CSS 裡的 ★★★ 標記 -->
   <!-- ============================================ -->
-  <header class="hero">
-    <div class="eyebrow">Hello, I'm introducing</div>
-    <h1>lamu <span>自我介紹</span></h1>
-    <p class="hero-sub">
-      <!-- ★ 在這裡改成你想說的一句話，例如：一句形容自己的話 -->
-      這裡放一句簡短有力的自我介紹，說明你是誰、你在做什麼。
-    </p>
-  </header>
-
-  <!-- ============================================ -->
-  <!-- 區塊 2：影片 — 只要換這一行的 YouTube 連結就好 -->
-  <!-- ============================================ -->
-  <section class="video">
-    <div class="label">介紹影片</div>
-    <div class="video-frame">
-      <!-- ★★★ 把下面 src 裡的 YOUR_VIDEO_ID 換成你 YouTube 影片的 ID 就好 -->
-      <!-- 例如影片網址是 https://www.youtube.com/watch?v=abc123 -->
-      <!-- 那 ID 就是 abc123，換成： src="https://www.youtube.com/embed/abc123" -->
-      <iframe
-        src="https://www.youtube.com/watch?v=4T9EMmKKmm8"
-        title="自我介紹影片"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen>
-      </iframe>
+  <div class="hero-photo">
+    <div class="hero-photo-inner">
+      <div class="eyebrow">Hello, I'm</div>
+      <h1>嵐慕 <em>Lanmu</em></h1>
+      <p class="hero-sub">
+        <!-- ★ 在這裡改成一句自我介紹 -->
+        這裡放一句簡短的自我介紹，說明你是誰、你在做的事。
+      </p>
     </div>
-    <p class="video-caption">影片說明可以寫在這裡（選填）</p>
-  </section>
+  </div>
 
-  <!-- ============================================ -->
-  <!-- 區塊 3：關於我 — 在這裡編輯自我介紹的文字 -->
-  <!-- ============================================ -->
-  <section>
-    <div class="label">關於我</div>
-    <h2>這裡放你的名字或標題</h2>
-    <p class="body-text">
-      <!-- ★ 在這裡寫關於自己的介紹，可以是背景、經歷、為什麼想參加這次海選等等 -->
-      這裡放一段關於自己的介紹文字。可以說說你的背景、你的故事，
-      或是為什麼你想參加這次海選。建議控制在 3-5 句話，簡潔有力。
-    </p>
-  </section>
+  <div class="wrap">
 
-  <!-- ============================================ -->
-  <!-- 區塊 4：產品 lamu 介紹 — 在這裡編輯產品說明 -->
-  <!-- ============================================ -->
-  <section>
-    <div class="label">關於 lamu</div>
-    <h2>lamu 是什麼</h2>
-    <p class="body-text">
-      <!-- ★ 在這裡介紹 lamu 產品/品牌的內容 -->
-      這裡放產品或品牌 lamu 的介紹文字，說明它是做什麼的、
-      解決了什麼問題，或是它的特色是什麼。
-    </p>
+    <!-- ============================================ -->
+    <!-- 影片區 — 換 YouTube 連結 -->
+    <!-- ============================================ -->
+    <section>
+      <div class="label">介紹影片</div>
+      <div class="video-frame">
+        <!-- ★★★ 把 YOUR_VIDEO_ID 換成你 YouTube 影片的 ID -->
+        <iframe
+          src="https://www.youtube.com/embed/4T9EMmKKmm8"
+          title="自我介紹影片"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen>
+        </iframe>
+      </div>
+      <p class="video-caption">影片說明可以寫在這裡（選填）</p>
+    </section>
 
-    <div class="product-card">
-      <div class="dot"></div>
-      <!-- ★ 可以放一個重點特色/口號 -->
-      <span>在這裡放一句 lamu 的重點特色或口號</span>
-    </div>
-  </section>
+    <!-- ============================================ -->
+    <!-- 關於我 -->
+    <!-- ============================================ -->
+    <section>
+      <div class="label">關於我</div>
+      <h2>一段簡單的自我介紹</h2>
+      <p class="body-text">
+        <!-- ★ 在這裡寫關於自己的介紹 -->
+        這裡放關於自己的介紹文字，可以說說創業的故事、
+        為什麼開始做嵐慕，或是這次想參加海選的原因。
+      </p>
+    </section>
 
-  <!-- ============================================ -->
-  <!-- 區塊 5：聯絡方式 — 在這裡換成真實連結 -->
-  <!-- ============================================ -->
-  <footer>
-    <div class="contact-links">
-      <!-- ★ 把 # 換成真實連結，例如 Instagram、Email -->
-      <a href="#">Instagram</a>
-      <a href="#">Email</a>
-      <a href="#">官方網站</a>
-    </div>
-    <div class="brand-mark">lamu</div>
-  </footer>
+    <!-- ============================================ -->
+    <!-- 關於 Lanmu -->
+    <!-- ============================================ -->
+    <section>
+      <div class="label">關於嵐慕</div>
+      <h2>「嵐」是山間的氣息<br>「慕」是心裡的嚮往</h2>
+      <p class="body-text">
+        <!-- ★ 在這裡放品牌介紹文字 -->
+        氣味不只是香氣，它是一種看不見的陪伴，
+        能在不知不覺中改變空間的氛圍，也能影響人的感受與節奏。
+      </p>
+      <p class="body-text">
+        在平凡的日常生活裡，為每一個忙碌的時刻留下一點停頓。
+      </p>
 
-</div>
+      <div class="product-card">
+        <div class="mark">"</div>
+        <!-- ★ 可以放品牌的一句核心slogan -->
+        <span>讓情緒安放，讓生活回到更舒適的節奏。</span>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- 聯絡方式 -->
+    <!-- ============================================ -->
+    <footer>
+      <div class="contact-links">
+        <!-- ★ 把 # 換成真實連結 -->
+        <a href="#">Instagram</a>
+        <a href="#">Facebook</a>
+        <a href="#">LINE</a>
+        <a href="#">官方網站</a>
+      </div>
+      <div class="brand-mark">Lanmu 嵐慕</div>
+    </footer>
+
+  </div>
 
 </body>
 </html>
