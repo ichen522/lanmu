@@ -5,18 +5,23 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Lanmu 嵐慕 — 自我介紹</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,500&family=Noto+Sans+TC:wght@300;400;500&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Noto+Sans+TC:wght@300;400;500&display=swap');
 
   :root {
-    --bg-dark: #2A211B;      /* 深咖啡背景 */
+    --bg-dark: #1B1611;      /* 深夜山色 */
     --bg-mid: #6B5647;       /* 中棕 */
+    --ridge-far: #241D17;    /* 遠山 */
+    --ridge-mid: #171209;    /* 近山 */
     --cream: #F3ECE1;        /* 米白文字 */
     --cream-soft: rgba(243, 236, 225, 0.72);
     --tan: #C9A876;          /* 溫暖點綴色 */
+    --mist: rgba(214, 214, 200, 0.5);
     --line: rgba(243, 236, 225, 0.14);
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
 
   body {
     background: var(--bg-dark);
@@ -24,31 +29,129 @@
     font-family: 'Noto Sans TC', sans-serif;
     line-height: 1.75;
     -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
   }
 
   .wrap {
     max-width: 880px;
     margin: 0 auto;
     padding: 0 28px;
+    position: relative;
   }
+
+  /* ---------- Ambient mist (whole page) ---------- */
+  .mist-layer {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+  }
+
+  .mist-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    mix-blend-mode: screen;
+    opacity: 0.35;
+    will-change: transform;
+  }
+
+  .mist-blob.a {
+    width: 60vw; height: 60vw;
+    top: -10vw; left: -15vw;
+    background: radial-gradient(circle, rgba(201,168,118,0.35), transparent 70%);
+    animation: driftA 46s ease-in-out infinite;
+  }
+
+  .mist-blob.b {
+    width: 50vw; height: 50vw;
+    top: 20vh; right: -20vw;
+    background: radial-gradient(circle, rgba(180,190,185,0.28), transparent 70%);
+    animation: driftB 60s ease-in-out infinite;
+  }
+
+  .mist-blob.c {
+    width: 70vw; height: 40vw;
+    bottom: -5vh; left: 10vw;
+    background: radial-gradient(circle, rgba(107,86,71,0.3), transparent 70%);
+    animation: driftC 70s ease-in-out infinite;
+  }
+
+  @keyframes driftA {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(8vw, 6vh) scale(1.15); }
+  }
+  @keyframes driftB {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-10vw, 4vh) scale(1.1); }
+  }
+  @keyframes driftC {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(6vw, -5vh) scale(1.08); }
+  }
+
+  main, header, footer { position: relative; z-index: 2; }
 
   /* ---------- Hero with photo ---------- */
   .hero-photo {
     position: relative;
     width: 100%;
-    height: 62vh;
-    min-height: 420px;
+    height: 66vh;
+    min-height: 460px;
     background-image:
-      linear-gradient(180deg, rgba(42,33,27,0.15) 0%, rgba(42,33,27,0.85) 100%),
+      linear-gradient(180deg, rgba(27,22,17,0.1) 0%, rgba(27,22,17,0.55) 65%, rgba(27,22,17,1) 100%),
       url('https://images.unsplash.com/photo-1615529162924-f8605388461d?q=80&w=1600');
     background-size: cover;
     background-position: center;
     display: flex;
     align-items: flex-end;
+    overflow: hidden;
+    z-index: 2;
+  }
+
+  /* drifting fog strictly inside the hero, in front of the photo */
+  .hero-fog {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 3;
+  }
+
+  .hero-fog span {
+    position: absolute;
+    left: -30%;
+    width: 160%;
+    height: 40%;
+    background: linear-gradient(90deg, transparent, rgba(243,236,225,0.16) 35%, rgba(243,236,225,0.22) 50%, rgba(243,236,225,0.16) 65%, transparent);
+    filter: blur(18px);
+    opacity: 0.5;
+  }
+
+  .hero-fog span:nth-child(1) { top: 55%; animation: fogDrift 34s linear infinite; }
+  .hero-fog span:nth-child(2) { top: 70%; height: 30%; animation: fogDrift 48s linear infinite reverse; opacity: 0.35; }
+  .hero-fog span:nth-child(3) { top: 40%; height: 25%; animation: fogDrift 60s linear infinite; opacity: 0.25; }
+
+  @keyframes fogDrift {
+    0% { transform: translateX(-10%); }
+    100% { transform: translateX(10%); }
+  }
+
+  /* mountain ridge silhouette along the bottom of the hero */
+  .ridge {
+    position: absolute;
+    left: 0; right: 0;
+    bottom: -1px;
+    width: 100%;
+    height: auto;
+    z-index: 4;
+    display: block;
   }
 
   .hero-photo-inner {
-    padding: 48px 28px;
+    position: relative;
+    z-index: 5;
+    padding: 48px 28px 88px;
     max-width: 880px;
     margin: 0 auto;
     width: 100%;
@@ -90,6 +193,17 @@
 
   section:last-of-type { border-bottom: none; }
 
+  .reveal {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+  }
+
+  .reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
   .label {
     font-size: 13px;
     letter-spacing: 0.16em;
@@ -106,6 +220,42 @@
     font-weight: 500;
     margin-bottom: 24px;
     color: var(--cream);
+  }
+
+  /* ---------- Signature: brand quote ---------- */
+  .brand-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: clamp(28px, 4.4vw, 42px);
+    line-height: 1.55;
+    letter-spacing: 0.01em;
+    color: var(--cream);
+    margin-bottom: 28px;
+    position: relative;
+  }
+
+  .brand-quote .accent {
+    color: var(--tan);
+    font-weight: 600;
+    font-style: normal;
+    position: relative;
+  }
+
+  /* soft breathing glow behind the two accent characters */
+  .brand-quote .accent::after {
+    content: '';
+    position: absolute;
+    inset: -30% -45%;
+    background: radial-gradient(circle, rgba(201,168,118,0.28), transparent 70%);
+    filter: blur(14px);
+    z-index: -1;
+    animation: breathe 5s ease-in-out infinite;
+  }
+
+  @keyframes breathe {
+    0%, 100% { opacity: 0.5; transform: scale(0.95); }
+    50% { opacity: 1; transform: scale(1.1); }
   }
 
   p.body-text {
@@ -148,6 +298,16 @@
     padding: 24px 28px;
     background: rgba(243, 236, 225, 0.035);
     border-left: 2px solid var(--tan);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .product-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(120% 60% at 0% 100%, rgba(201,168,118,0.08), transparent 70%);
+    pointer-events: none;
   }
 
   .product-card .mark {
@@ -157,6 +317,14 @@
     color: var(--tan);
     line-height: 1;
     flex-shrink: 0;
+  }
+
+  /* ---------- Ridge divider between sections ---------- */
+  .section-ridge {
+    width: 100%;
+    height: 48px;
+    display: block;
+    opacity: 0.6;
   }
 
   /* ---------- Footer ---------- */
@@ -195,17 +363,48 @@
   }
 
   @media (max-width: 600px) {
-    .hero-photo { height: 52vh; min-height: 340px; }
+    .hero-photo { height: 56vh; min-height: 380px; }
     footer { flex-direction: column; align-items: flex-start; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .mist-blob, .hero-fog span, .brand-quote .accent::after {
+      animation: none !important;
+    }
+    .reveal {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
   }
 </style>
 </head>
 <body>
 
+  <!-- Ambient mist, drifts slowly across the whole page -->
+  <div class="mist-layer" aria-hidden="true">
+    <div class="mist-blob a"></div>
+    <div class="mist-blob b"></div>
+    <div class="mist-blob c"></div>
+  </div>
+
   <!-- ============================================ -->
   <!-- 主視覺照片區 -->
   <!-- ============================================ -->
   <div class="hero-photo">
+    <div class="hero-fog" aria-hidden="true">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <!-- mountain ridge silhouette, two layers for depth -->
+    <svg class="ridge" viewBox="0 0 1440 180" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0,120 L120,90 L260,130 L400,70 L560,110 L720,60 L880,115 L1020,80 L1180,125 L1320,85 L1440,110 L1440,180 L0,180 Z" fill="#241D17" opacity="0.9"></path>
+      <path d="M0,150 L140,120 L300,155 L480,110 L640,150 L820,105 L1000,150 L1180,120 L1320,155 L1440,140 L1440,180 L0,180 Z" fill="#171209"></path>
+    </svg>
+
     <div class="hero-photo-inner">
       <div class="eyebrow">Hello, I'm</div>
       <h1>嵐慕 <em>Lanmu</em></h1>
@@ -220,7 +419,7 @@
     <!-- ============================================ -->
     <!-- 影片區 -->
     <!-- ============================================ -->
-    <section>
+    <section class="reveal">
       <div class="label">介紹影片</div>
       <div class="video-frame">
         <iframe
@@ -230,20 +429,22 @@
           allowfullscreen>
         </iframe>
       </div>
-      <p class="video-caption">影片說明可以寫在這裡（選填）</p>
+      <p class="video-caption">嵐慕產品、理念介紹</p>
     </section>
 
     <!-- ============================================ -->
     <!-- 關於我 -->
     <!-- ============================================ -->
-    <section>
+    <section class="reveal">
       <div class="label">關於我</div>
       <h2>一段簡單的自我介紹</h2>
       <p class="body-text">
         開始做嵐慕，是因為我一直相信，現代人其實不是不想照顧自己，而是很多時候，我們連停下來感受自己都變得很困難。走進心理諮商室、開始冥想或瑜伽，對許多人來說仍然有一段距離，所以我希望用一個更日常、更容易靠近的方式，讓人們重新意識到自己的狀態。
-
+      </p>
+      <p class="body-text">
         嵐慕從睡前香氣噴霧開始，結合心理覺察、睡前儀式與氣味陪伴，希望讓「準備休息」不只是一天的結束，而是一個可以慢慢回到自己的時刻。
-
+      </p>
+      <p class="body-text">
         這次想參加海選，是希望讓更多人看見嵐慕的理念，也希望透過這個舞台，找到能一起把品牌推得更遠的夥伴。
       </p>
     </section>
@@ -251,9 +452,12 @@
     <!-- ============================================ -->
     <!-- 關於 Lanmu -->
     <!-- ============================================ -->
-    <section>
+    <section class="reveal">
       <div class="label">關於嵐慕</div>
-      <h2>「嵐」是山間的氣息<br>「慕」是心裡的嚮往</h2>
+      <h2 class="brand-quote">
+        <span class="accent">嵐</span>，是山間的氣息<br>
+        <span class="accent">慕</span>，是心裡的嚮往
+      </h2>
       <p class="body-text">
         氣味不只是香氣，它是一種看不見的陪伴，
         能在不知不覺中改變空間的氛圍，也能影響人的感受與節奏。
@@ -271,7 +475,7 @@
     <!-- ============================================ -->
     <!-- 聯絡方式 -->
     <!-- ============================================ -->
-    <footer>
+    <footer class="reveal">
       <div class="contact-links">
         <a href="https://www.instagram.com/lanmu.tw" target="_blank" rel="noopener">Instagram</a>
         <a href="https://www.facebook.com/profile.php?id=61586886126061" target="_blank" rel="noopener">Facebook</a>
@@ -282,6 +486,30 @@
     </footer>
 
   </div>
+
+  <script>
+    // Scroll-triggered reveal for sections
+    (function () {
+      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var targets = document.querySelectorAll('.reveal');
+
+      if (reduceMotion || !('IntersectionObserver' in window)) {
+        targets.forEach(function (el) { el.classList.add('is-visible'); });
+        return;
+      }
+
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+
+      targets.forEach(function (el) { observer.observe(el); });
+    })();
+  </script>
 
 </body>
 </html>
