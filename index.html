@@ -4,24 +4,74 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Lanmu 嵐慕 — 自我介紹</title>
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="嵐慕 Lanmu — 讓情緒安放，讓生活回到更舒適的節奏">
+<meta property="og:description" content="我是 Elena，目前正在創立嵐慕 LANMU，希望透過香氣與睡前儀式，讓人們用更簡單的方式覺察自己、放鬆下來。">
+<meta property="og:image" content="https://images.unsplash.com/photo-1615529162924-f8605388461d?q=80&w=1200">
+<meta property="og:url" content="https://ichen522.github.io/lanmu/">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%231B1611'/%3E%3Ctext x='50' y='68' font-size='58' text-anchor='middle' fill='%23C9A876' font-family='serif'%3E%E5%B5%90%3C/text%3E%3C/svg%3E">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Noto+Sans+TC:wght@300;400;500&display=swap');
 
   :root {
-    --bg-dark: #1B1611;      /* 深夜山色 */
-    --bg-mid: #6B5647;       /* 中棕 */
-    --ridge-far: #241D17;    /* 遠山 */
-    --ridge-mid: #171209;    /* 近山 */
-    --cream: #F3ECE1;        /* 米白文字 */
+    /* ---- night (default) palette ---- */
+    --bg-dark: #1B1611;
+    --bg-mid: #6B5647;
+    --ridge-far: #241D17;
+    --ridge-mid: #171209;
+    --cream: #F3ECE1;
     --cream-soft: rgba(243, 236, 225, 0.72);
-    --tan: #C9A876;          /* 溫暖點綴色 */
-    --mist: rgba(214, 214, 200, 0.5);
+    --tan: #C9A876;
     --line: rgba(243, 236, 225, 0.14);
+
+    --fog-rgb: 243, 236, 225;
+    --mist-a-rgb: 201, 168, 118;
+    --mist-b-rgb: 180, 190, 185;
+    --mist-c-rgb: 107, 86, 71;
+    --hero-grad-1: rgba(27, 22, 17, 0.1);
+    --hero-grad-2: rgba(27, 22, 17, 0.55);
+    --hero-grad-3: rgba(27, 22, 17, 1);
+    --scroll-cue-color: rgba(243, 236, 225, 0.55);
+    --footer-brand-rgb: 243, 236, 225;
+    --grain-opacity: 0.035;
+    --grain-blend: overlay;
+  }
+
+  body.day-mode {
+    /* ---- day / morning mist palette ---- */
+    --bg-dark: #E8EAE3;
+    --bg-mid: #9BA79C;
+    --ridge-far: #B7C2BA;
+    --ridge-mid: #8DA096;
+    --cream: #2B2E2A;
+    --cream-soft: rgba(43, 46, 42, 0.68);
+    --tan: #6E8074;
+    --line: rgba(43, 46, 42, 0.12);
+
+    --fog-rgb: 255, 255, 255;
+    --mist-a-rgb: 176, 196, 186;
+    --mist-b-rgb: 205, 213, 208;
+    --mist-c-rgb: 150, 165, 158;
+    --hero-grad-1: rgba(232, 234, 227, 0.05);
+    --hero-grad-2: rgba(232, 234, 227, 0.4);
+    --hero-grad-3: rgba(232, 234, 227, 0.92);
+    --scroll-cue-color: rgba(43, 46, 42, 0.55);
+    --footer-brand-rgb: 43, 46, 42;
+    --grain-opacity: 0.02;
+    --grain-blend: multiply;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   html { scroll-behavior: smooth; }
+
+  ::selection {
+    background: rgba(var(--mist-a-rgb), 0.35);
+    color: var(--cream);
+  }
 
   body {
     background: var(--bg-dark);
@@ -30,6 +80,7 @@
     line-height: 1.75;
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
+    transition: background 0.6s ease, color 0.6s ease;
   }
 
   .wrap {
@@ -38,6 +89,31 @@
     padding: 0 28px;
     position: relative;
   }
+
+  /* ---------- Day / night toggle ---------- */
+  .mode-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 60;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(var(--fog-rgb), 0.08);
+    backdrop-filter: blur(6px);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 8px 14px;
+    color: var(--cream);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    transition: background 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+  }
+
+  .mode-toggle:hover { background: rgba(var(--fog-rgb), 0.14); }
+
+  .mode-toggle svg { width: 14px; height: 14px; }
 
   /* ---------- Ambient mist (whole page) ---------- */
   .mist-layer {
@@ -55,26 +131,27 @@
     mix-blend-mode: screen;
     opacity: 0.35;
     will-change: transform;
+    transition: background 0.6s ease;
   }
 
   .mist-blob.a {
     width: 60vw; height: 60vw;
     top: -10vw; left: -15vw;
-    background: radial-gradient(circle, rgba(201,168,118,0.35), transparent 70%);
+    background: radial-gradient(circle, rgba(var(--mist-a-rgb), 0.35), transparent 70%);
     animation: driftA 46s ease-in-out infinite;
   }
 
   .mist-blob.b {
     width: 50vw; height: 50vw;
     top: 20vh; right: -20vw;
-    background: radial-gradient(circle, rgba(180,190,185,0.28), transparent 70%);
+    background: radial-gradient(circle, rgba(var(--mist-b-rgb), 0.28), transparent 70%);
     animation: driftB 60s ease-in-out infinite;
   }
 
   .mist-blob.c {
     width: 70vw; height: 40vw;
     bottom: -5vh; left: 10vw;
-    background: radial-gradient(circle, rgba(107,86,71,0.3), transparent 70%);
+    background: radial-gradient(circle, rgba(var(--mist-c-rgb), 0.3), transparent 70%);
     animation: driftC 70s ease-in-out infinite;
   }
 
@@ -93,6 +170,18 @@
 
   main, header, footer { position: relative; z-index: 2; }
 
+  /* ---------- Film grain, subtle analogue texture over everything ---------- */
+  .grain {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    pointer-events: none;
+    opacity: var(--grain-opacity);
+    mix-blend-mode: var(--grain-blend);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 160px 160px;
+  }
+
   /* ---------- Hero with photo ---------- */
   .hero-photo {
     position: relative;
@@ -100,7 +189,7 @@
     height: 66vh;
     min-height: 460px;
     background-image:
-      linear-gradient(180deg, rgba(27,22,17,0.1) 0%, rgba(27,22,17,0.55) 65%, rgba(27,22,17,1) 100%),
+      linear-gradient(180deg, var(--hero-grad-1) 0%, var(--hero-grad-2) 65%, var(--hero-grad-3) 100%),
       url('https://images.unsplash.com/photo-1615529162924-f8605388461d?q=80&w=1600');
     background-size: cover;
     background-position: center;
@@ -108,6 +197,14 @@
     align-items: flex-end;
     overflow: hidden;
     z-index: 2;
+    filter: blur(18px) brightness(0.7);
+    transform: scale(1.05);
+    transition: filter 1.8s ease, transform 1.8s ease;
+  }
+
+  .hero-photo.is-loaded {
+    filter: blur(0) brightness(1);
+    transform: scale(1);
   }
 
   /* drifting fog strictly inside the hero, in front of the photo */
@@ -123,7 +220,7 @@
     left: -30%;
     width: 160%;
     height: 40%;
-    background: linear-gradient(90deg, transparent, rgba(243,236,225,0.16) 35%, rgba(243,236,225,0.22) 50%, rgba(243,236,225,0.16) 65%, transparent);
+    background: linear-gradient(90deg, transparent, rgba(var(--fog-rgb), 0.16) 35%, rgba(var(--fog-rgb), 0.22) 50%, rgba(var(--fog-rgb), 0.16) 65%, transparent);
     filter: blur(18px);
     opacity: 0.5;
   }
@@ -155,6 +252,7 @@
     max-width: 880px;
     margin: 0 auto;
     width: 100%;
+    will-change: transform;
   }
 
   .eyebrow {
@@ -185,23 +283,50 @@
     color: var(--cream-soft);
   }
 
-  /* ---------- Sections ---------- */
-  section {
-    padding: 72px 0;
-    border-bottom: 1px solid var(--line);
+  /* ---------- Scroll cue ---------- */
+  .scroll-cue {
+    position: absolute;
+    left: 50%;
+    bottom: 22px;
+    transform: translateX(-50%);
+    z-index: 6;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    color: var(--scroll-cue-color);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    animation: cueFloat 2.6s ease-in-out infinite;
   }
 
-  section:last-of-type { border-bottom: none; }
+  .scroll-cue svg {
+    width: 14px;
+    height: 20px;
+  }
+
+  @keyframes cueFloat {
+    0%, 100% { transform: translate(-50%, 0); opacity: 0.55; }
+    50% { transform: translate(-50%, 6px); opacity: 0.9; }
+  }
+
+  /* ---------- Sections ---------- */
+  section {
+    padding: 56px 0;
+  }
 
   .reveal {
     opacity: 0;
     transform: translateY(22px);
-    transition: opacity 0.9s ease, transform 0.9s ease;
+    filter: blur(6px);
+    transition: opacity 0.9s ease, transform 0.9s ease, filter 0.9s ease;
   }
 
   .reveal.is-visible {
     opacity: 1;
     transform: translateY(0);
+    filter: blur(0);
   }
 
   .label {
@@ -242,12 +367,11 @@
     position: relative;
   }
 
-  /* soft breathing glow behind the two accent characters */
   .brand-quote .accent::after {
     content: '';
     position: absolute;
     inset: -30% -45%;
-    background: radial-gradient(circle, rgba(201,168,118,0.28), transparent 70%);
+    background: radial-gradient(circle, rgba(var(--mist-a-rgb), 0.28), transparent 70%);
     filter: blur(14px);
     z-index: -1;
     animation: breathe 5s ease-in-out infinite;
@@ -271,9 +395,16 @@
     position: relative;
     width: 100%;
     padding-top: 56.25%;
-    background: rgba(243, 236, 225, 0.04);
+    background: rgba(var(--fog-rgb), 0.04);
     border: 1px solid var(--line);
     overflow: hidden;
+    border-radius: 2px;
+    box-shadow: 0 0 0 1px rgba(var(--mist-a-rgb), 0.08), 0 0 32px rgba(var(--mist-a-rgb), 0.12);
+    transition: box-shadow 0.5s ease;
+  }
+
+  .video-frame:hover {
+    box-shadow: 0 0 0 1px rgba(var(--mist-a-rgb), 0.18), 0 0 44px rgba(var(--mist-a-rgb), 0.22);
   }
 
   .video-frame iframe {
@@ -286,7 +417,8 @@
   .video-caption {
     margin-top: 18px;
     font-size: 14px;
-    color: rgba(243, 236, 225, 0.5);
+    color: var(--cream-soft);
+    opacity: 0.7;
   }
 
   /* ---------- Product card ---------- */
@@ -296,7 +428,7 @@
     gap: 18px;
     margin-top: 32px;
     padding: 24px 28px;
-    background: rgba(243, 236, 225, 0.035);
+    background: rgba(var(--fog-rgb), 0.035);
     border-left: 2px solid var(--tan);
     position: relative;
     overflow: hidden;
@@ -306,7 +438,7 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: radial-gradient(120% 60% at 0% 100%, rgba(201,168,118,0.08), transparent 70%);
+    background: radial-gradient(120% 60% at 0% 100%, rgba(var(--mist-a-rgb), 0.08), transparent 70%);
     pointer-events: none;
   }
 
@@ -320,11 +452,17 @@
   }
 
   /* ---------- Ridge divider between sections ---------- */
+  .section-ridge-wrap {
+    width: 100%;
+    padding: 0;
+    line-height: 0;
+  }
+
   .section-ridge {
     width: 100%;
-    height: 48px;
+    height: 40px;
     display: block;
-    opacity: 0.6;
+    opacity: 0.7;
   }
 
   /* ---------- Footer ---------- */
@@ -334,7 +472,14 @@
     flex-wrap: wrap;
     gap: 24px;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-end;
+  }
+
+  .footer-brand {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    align-items: flex-start;
   }
 
   .contact-links {
@@ -357,23 +502,38 @@
   .brand-mark {
     font-family: 'Cormorant Garamond', serif;
     font-style: italic;
-    color: rgba(243, 236, 225, 0.4);
+    color: rgba(var(--footer-brand-rgb), 0.55);
     font-size: 15px;
     letter-spacing: 0.05em;
+  }
+
+  .brand-tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color: rgba(var(--footer-brand-rgb), 0.38);
+    font-size: 13px;
+    letter-spacing: 0.06em;
   }
 
   @media (max-width: 600px) {
     .hero-photo { height: 56vh; min-height: 380px; }
     footer { flex-direction: column; align-items: flex-start; }
+    .mode-toggle { top: 14px; right: 14px; padding: 7px 12px; }
   }
 
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
-    .mist-blob, .hero-fog span, .brand-quote .accent::after {
+    .mist-blob, .hero-fog span, .brand-quote .accent::after, .scroll-cue {
       animation: none !important;
     }
     .reveal {
       opacity: 1 !important;
+      transform: none !important;
+      filter: none !important;
+      transition: none !important;
+    }
+    .hero-photo {
+      filter: none !important;
       transform: none !important;
       transition: none !important;
     }
@@ -382,6 +542,14 @@
 </head>
 <body>
 
+  <!-- Day / night mist toggle -->
+  <button class="mode-toggle" id="modeToggle" type="button" aria-label="切換日間／夜間山嵐氛圍">
+    <svg id="modeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+    </svg>
+    <span id="modeLabel">夜嵐</span>
+  </button>
+
   <!-- Ambient mist, drifts slowly across the whole page -->
   <div class="mist-layer" aria-hidden="true">
     <div class="mist-blob a"></div>
@@ -389,10 +557,13 @@
     <div class="mist-blob c"></div>
   </div>
 
+  <!-- Subtle film grain, sits above everything -->
+  <div class="grain" aria-hidden="true"></div>
+
   <!-- ============================================ -->
   <!-- 主視覺照片區 -->
   <!-- ============================================ -->
-  <div class="hero-photo">
+  <div class="hero-photo" id="heroPhoto">
     <div class="hero-fog" aria-hidden="true">
       <span></span>
       <span></span>
@@ -401,16 +572,24 @@
 
     <!-- mountain ridge silhouette, two layers for depth -->
     <svg class="ridge" viewBox="0 0 1440 180" preserveAspectRatio="none" aria-hidden="true">
-      <path d="M0,120 L120,90 L260,130 L400,70 L560,110 L720,60 L880,115 L1020,80 L1180,125 L1320,85 L1440,110 L1440,180 L0,180 Z" fill="#241D17" opacity="0.9"></path>
-      <path d="M0,150 L140,120 L300,155 L480,110 L640,150 L820,105 L1000,150 L1180,120 L1320,155 L1440,140 L1440,180 L0,180 Z" fill="#171209"></path>
+      <path d="M0,120 L120,90 L260,130 L400,70 L560,110 L720,60 L880,115 L1020,80 L1180,125 L1320,85 L1440,110 L1440,180 L0,180 Z" style="fill:var(--ridge-far)" opacity="0.9"></path>
+      <path d="M0,150 L140,120 L300,155 L480,110 L640,150 L820,105 L1000,150 L1180,120 L1320,155 L1440,140 L1440,180 L0,180 Z" style="fill:var(--ridge-mid)"></path>
     </svg>
 
-    <div class="hero-photo-inner">
+    <div class="hero-photo-inner" id="heroInner">
       <div class="eyebrow">Hello, I'm</div>
       <h1>嵐慕 <em>Lanmu</em></h1>
       <p class="hero-sub">
         我是 Elena，目前正在創立嵐慕 LANMU，希望透過香氣與睡前儀式，讓人們用更簡單的方式覺察自己、放鬆下來。
       </p>
+    </div>
+
+    <div class="scroll-cue" aria-hidden="true">
+      <span>Scroll</span>
+      <svg viewBox="0 0 14 20" fill="none">
+        <rect x="1" y="1" width="12" height="18" rx="6" stroke="currentColor" stroke-width="1"/>
+        <circle cx="7" cy="6" r="1.4" fill="currentColor"/>
+      </svg>
     </div>
   </div>
 
@@ -432,6 +611,12 @@
       <p class="video-caption">嵐慕產品、理念介紹</p>
     </section>
 
+    <div class="section-ridge-wrap" aria-hidden="true">
+      <svg class="section-ridge" viewBox="0 0 1440 60" preserveAspectRatio="none">
+        <path d="M0,30 L160,12 L340,38 L520,8 L700,32 L880,14 L1060,36 L1240,16 L1440,28" fill="none" style="stroke:var(--bg-mid)" stroke-width="1" opacity="0.5"></path>
+      </svg>
+    </div>
+
     <!-- ============================================ -->
     <!-- 關於我 -->
     <!-- ============================================ -->
@@ -448,6 +633,12 @@
         這次想參加海選，是希望讓更多人看見嵐慕的理念，也希望透過這個舞台，找到能一起把品牌推得更遠的夥伴。
       </p>
     </section>
+
+    <div class="section-ridge-wrap" aria-hidden="true">
+      <svg class="section-ridge" viewBox="0 0 1440 60" preserveAspectRatio="none">
+        <path d="M0,30 L160,12 L340,38 L520,8 L700,32 L880,14 L1060,36 L1240,16 L1440,28" fill="none" style="stroke:var(--bg-mid)" stroke-width="1" opacity="0.5"></path>
+      </svg>
+    </div>
 
     <!-- ============================================ -->
     <!-- 關於 Lanmu -->
@@ -472,6 +663,12 @@
       </div>
     </section>
 
+    <div class="section-ridge-wrap" aria-hidden="true">
+      <svg class="section-ridge" viewBox="0 0 1440 60" preserveAspectRatio="none">
+        <path d="M0,30 L160,12 L340,38 L520,8 L700,32 L880,14 L1060,36 L1240,16 L1440,28" fill="none" style="stroke:var(--bg-mid)" stroke-width="1" opacity="0.5"></path>
+      </svg>
+    </div>
+
     <!-- ============================================ -->
     <!-- 聯絡方式 -->
     <!-- ============================================ -->
@@ -482,7 +679,10 @@
         <a href="mailto:lanmu.ltd@gmail.com">Email</a>
         <a href="https://lanmu.tw/" target="_blank" rel="noopener">官方網站</a>
       </div>
-      <div class="brand-mark">Lanmu 嵐慕</div>
+      <div class="footer-brand">
+        <div class="brand-mark">Lanmu 嵐慕</div>
+        <div class="brand-tagline">霧起山間，慕自歸來</div>
+      </div>
     </footer>
 
   </div>
@@ -495,19 +695,82 @@
 
       if (reduceMotion || !('IntersectionObserver' in window)) {
         targets.forEach(function (el) { el.classList.add('is-visible'); });
-        return;
+      } else {
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+
+        targets.forEach(function (el) { observer.observe(el); });
+      }
+    })();
+
+    // Fog-reveal for the hero photo: preload, then unblur
+    (function () {
+      var hero = document.getElementById('heroPhoto');
+      var img = new Image();
+      img.onload = function () {
+        requestAnimationFrame(function () {
+          hero.classList.add('is-loaded');
+        });
+      };
+      img.onerror = function () { hero.classList.add('is-loaded'); };
+      img.src = 'https://images.unsplash.com/photo-1615529162924-f8605388461d?q=80&w=1600';
+      // Fallback in case the load event never fires
+      setTimeout(function () { hero.classList.add('is-loaded'); }, 2500);
+    })();
+
+    // Subtle parallax: hero text drifts slower than the page scroll
+    (function () {
+      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduceMotion) return;
+
+      var heroInner = document.getElementById('heroInner');
+      var ticking = false;
+
+      function update() {
+        var y = window.scrollY || 0;
+        var offset = Math.min(y * 0.18, 80);
+        heroInner.style.transform = 'translateY(' + offset + 'px)';
+        heroInner.style.opacity = String(Math.max(1 - y / 500, 0));
+        ticking = false;
       }
 
-      var observer = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-            observer.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+      window.addEventListener('scroll', function () {
+        if (!ticking) {
+          requestAnimationFrame(update);
+          ticking = true;
+        }
+      }, { passive: true });
+    })();
 
-      targets.forEach(function (el) { observer.observe(el); });
+    // Day / night mist toggle
+    (function () {
+      var btn = document.getElementById('modeToggle');
+      var icon = document.getElementById('modeIcon');
+      var label = document.getElementById('modeLabel');
+
+      var sunPath = 'M12 4V2M12 22v-2M4 12H2m20 0h-2M5.6 5.6 4.2 4.2m15.6 15.6-1.4-1.4M5.6 18.4l-1.4 1.4M18.4 5.6l1.4-1.4M12 17a5 5 0 1 0 0-10 5 5 0 0 0 0 10z';
+      var moonPath = 'M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z';
+
+      function setDay(isDay) {
+        document.body.classList.toggle('day-mode', isDay);
+        label.textContent = isDay ? '日嵐' : '夜嵐';
+        icon.innerHTML = '<path d="' + (isDay ? sunPath : moonPath) + '"></path>';
+        try { localStorage.setItem('lanmu-mode', isDay ? 'day' : 'night'); } catch (e) {}
+      }
+
+      var saved = null;
+      try { saved = localStorage.getItem('lanmu-mode'); } catch (e) {}
+      setDay(saved === 'day');
+
+      btn.addEventListener('click', function () {
+        setDay(!document.body.classList.contains('day-mode'));
+      });
     })();
   </script>
 
