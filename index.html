@@ -8,7 +8,7 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="嵐慕 Lanmu — 讓情緒安放，讓生活回到更舒適的節奏">
 <meta property="og:description" content="我是 Elena，目前正在創立嵐慕 LANMU，希望透過香氣與睡前儀式，讓人們用更簡單的方式覺察自己、放鬆下來。">
-<meta property="og:image" content="https://images.unsplash.com/photo-1615529162924-f8605388461d?q=80&w=1200">
+<meta property="og:image" content="https://image.bvshop.tw/5376/home/5376_699c27e2c9cf5.png.webp">
 <meta property="og:url" content="https://ichen522.github.io/lanmu/">
 <meta name="twitter:card" content="summary_large_image">
 
@@ -190,7 +190,7 @@
     min-height: 460px;
     background-image:
       linear-gradient(180deg, var(--hero-grad-1) 0%, var(--hero-grad-2) 65%, var(--hero-grad-3) 100%),
-      url('https://images.unsplash.com/photo-1615529162924-f8605388461d?q=80&w=1600');
+      url('https://image.bvshop.tw/5376/home/5376_699c27e2c9cf5.png.webp');
     background-size: cover;
     background-position: center;
     display: flex;
@@ -281,34 +281,6 @@
     font-size: 17px;
     max-width: 480px;
     color: var(--cream-soft);
-  }
-
-  /* ---------- Scroll cue ---------- */
-  .scroll-cue {
-    position: absolute;
-    left: 50%;
-    bottom: 22px;
-    transform: translateX(-50%);
-    z-index: 6;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-    color: var(--scroll-cue-color);
-    font-size: 11px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    animation: cueFloat 2.6s ease-in-out infinite;
-  }
-
-  .scroll-cue svg {
-    width: 14px;
-    height: 20px;
-  }
-
-  @keyframes cueFloat {
-    0%, 100% { transform: translate(-50%, 0); opacity: 0.55; }
-    50% { transform: translate(-50%, 6px); opacity: 0.9; }
   }
 
   /* ---------- Sections ---------- */
@@ -523,7 +495,7 @@
 
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
-    .mist-blob, .hero-fog span, .brand-quote .accent::after, .scroll-cue {
+    .mist-blob, .hero-fog span, .brand-quote .accent::after {
       animation: none !important;
     }
     .reveal {
@@ -582,14 +554,6 @@
       <p class="hero-sub">
         我是 Elena，目前正在創立嵐慕 LANMU，希望透過香氣與睡前儀式，讓人們用更簡單的方式覺察自己、放鬆下來。
       </p>
-    </div>
-
-    <div class="scroll-cue" aria-hidden="true">
-      <span>Scroll</span>
-      <svg viewBox="0 0 14 20" fill="none">
-        <rect x="1" y="1" width="12" height="18" rx="6" stroke="currentColor" stroke-width="1"/>
-        <circle cx="7" cy="6" r="1.4" fill="currentColor"/>
-      </svg>
     </div>
   </div>
 
@@ -719,7 +683,7 @@
         });
       };
       img.onerror = function () { hero.classList.add('is-loaded'); };
-      img.src = 'https://images.unsplash.com/photo-1615529162924-f8605388461d?q=80&w=1600';
+      img.src = 'https://image.bvshop.tw/5376/home/5376_699c27e2c9cf5.png.webp';
       // Fallback in case the load event never fires
       setTimeout(function () { hero.classList.add('is-loaded'); }, 2500);
     })();
